@@ -1,7 +1,6 @@
 import nodemailer, { Transporter } from "nodemailer";
 import { EmailData, IMailProvider } from "../IMailProvider";
 
-
 export class MailProvider implements IMailProvider {
   private transporter: Transporter;
 
@@ -11,14 +10,14 @@ export class MailProvider implements IMailProvider {
       port: 2525,
       auth: {
         user: process.env.NODEMAILER_USER,
-        pass: process.env.NODEMAILER_API_KEY,
+        pass: process.env.NODEMAILER_PASSWORD,
       },
     });
   }
 
   async sendEmail({ to, subject, text, html }: EmailData): Promise<void> {
     await this.transporter.sendMail({
-      from: process.env.MAIL_USER,
+      from: process.env.FROM_EMAIL,
       to,
       subject,
       text,
